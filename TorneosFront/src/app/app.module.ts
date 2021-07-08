@@ -9,6 +9,8 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { UsuariosComponent } from './componentes/usuarios/usuarios.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { EquiposComponent } from './componentes/equipos/equipos.component';
+import { LigasComponent } from './componentes/ligas/ligas.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegistroComponent,
     NavbarComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    EquiposComponent,
+    LigasComponent
   ],
   imports: [
     BrowserModule,
