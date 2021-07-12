@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-lg-10">
+      <form>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Detalle</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lig of liga">
+      <td>{{ lig.nombre }}</td>
+      <td>{{ lig.detalle }}</td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-outline-warning" (click)="obtenerLigaId(lig._id)"
+          data-bs-toggle="modal" data-bs-target="#modalEditarLiga">Editar</button>
+          <button type="button" class="btn btn-outline-danger" (click)="obtenerLigaId(lig._id)"
+          data-bs-toggle="modal" data-bs-target="#modalEliminarLiga">Eliminar</button>
+          <button type="button" class="btn btn-outline-info" routerLink="/equipos"(click)="obtenerLigaId(lig._id)">Ver Equipos</button>
+        </div>
+    </tr>
+    <button type="button" class="btn btn-outline-success" 
+          data-bs-toggle="modal" data-bs-target="#modalRegistrarLiga">Crear una nueva liga</button>
+  </tbody>
+</table>
+</form>
+</div>
+</div>
+
+
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="modalEditarLiga" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre"
+            name="Nombre" #nombre="ngModel" [(ngModel)]="idLigaModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDetalle" class="form-label">Detalle</label>
+            <input type="text" class="form-control" id="inputDetalle"
+            name="detalle" #detalle="ngModel" [(ngModel)]="idLigaModel.detalle">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="editarLiga()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Usuario -->
+<div class="modal fade" id="modalEliminarLiga" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea eliminar lag liga: {{ idLigaModel.nombre }}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+        (click)="eliminarLiga(idLigaModel._id)">Si, eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal registrar Admin -->
+<div class="modal fade" id="modalRegistrarLiga" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre"
+            name="nombre" #nombre="ngModel" [(ngModel)]="idLigaModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputDetalle" class="form-label">Detalle</label>
+            <input type="text" class="form-control" id="inputDetalle"
+            name="detalle" #detalle="ngModel" [(ngModel)]="idLigaModel.detalle">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarLiga()" >Crear un nueva Liga</button>
+      </div>
+    </div>
+  </div>
+</div>

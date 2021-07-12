@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div  class="col-lg-12">
+      
+<table id="genpdf"class="table">
+  <thead>
+    <tr>
+      <th scope="col">Log0</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Goles a favor</th>
+      <th scope="col">Goles en contra</th>
+      <th scope="col">Diferencia</th>
+      <th scope="col">Partidos Jugados</th>
+      <th scope="col">puntos</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let eq of equipo">
+      <td>{{ eq.nombre }}</td>
+      <td>{{ eq.golesFavor }}</td>
+      <td>{{ eq.golesContra }}</td>
+      <td>{{ eq.golesDiferencia }}</td>
+      <td>{{ eq.partidos }}</td>
+      <td>{{ eq.puntos }}</td>
+        <div class="btn-group" role="group" aria-label="Basic example" >
+          <button  type="button" class="btn btn-outline-warning" (click)="obtenerEquipoId(eq._id)"
+          data-bs-toggle="modal" data-bs-target="#modalEditarEquipo">Editar Equipo</button>
+          <button type="button" class="btn btn-outline-danger" 
+          data-bs-toggle="modal" data-bs-target="#modalEliminarEquipo"(click)="obtenerEquipoId(eq._id)" >Eliminar Equipo</button>
+        </div>
+    </tr>
+    <div class="btn-group" role="group" aria-label="Basic example" >
+    <button type="button" class="btn btn-outline-success" 
+          data-bs-toggle="modal" data-bs-target="#modalRegistrarEquipo">Crear un nuevo Equipo</button>
+          <button type="button" class="btn btn-outline-success" 
+          data-bs-toggle="modal" data-bs-target="#modalmarcador">Agregar Resultados</button>
+          <button type="button" class="btn btn-outline-success" (click)="generarPDF()" >Generar PDF</button>
+      </div>
+  </tbody>
+</table>
+</div>
+</div>
+
+  
+
+<!-- Modal Editar Usuario -->
+<div class="modal fade" id="modalEditarEquipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="inputNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre"
+            name="Nombre" #nombre="ngModel" [(ngModel)]="idEquipoModel.nombre">
+          </div>
+          <div class="mb-3">
+            <label for="inputImagen" class="form-label">Logo(URL)</label>
+            <input type="text" class="form-control" id="inputImagen"
+            name="imagen" #imagen="ngModel" [(ngModel)]="idEquipoModel.imagen">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="editarEquipo()">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Usuario -->
+<div class="modal fade" id="modalEliminarEquipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Liga</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Esta seguro de que desea eliminar el equipo: {{ idEquipoModel.nombre }}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+        (click)="eliminarEquipo(idEquipoModel._id)">Si, eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Modal registrar Equipo -->
+<div class="modal fade" id="modalRegistrarEquipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crear Equipo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="inputNombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="inputNombre"
+              name="nombre" #nombre="ngModel" [(ngModel)]="idEquipoModel.nombre">
+            </div>
+            <div class="mb-3">
+              <label for="inputImagen" class="form-label">Logo(URL)</label>
+              <input type="text" class="form-control" id="inputImagen"
+              name="imagen" #imagen="ngModel" [(ngModel)]="idEquipoModel.imagen">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="agregarEquipo()" >Crear Equipo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Modal marcador -->
+<div class="modal fade" id="modalmarcador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Equipo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option >seleciones primer equipo</option>
+          <option *ngFor="let eq of equipo"  (click)="obtenerEquipoId(eq._id)">{{ eq.nombre }}</option>
+        </select>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option >seleciones primer equipo</option>
+          <option *ngFor="let eq of equipo" (click)="obtenerEquipoId(eq._id)" >{{ eq.nombre }}</option>
+        </select>
+        <div class="mb-3">
+          <label for="inputGoles1" class="form-label">Goles del equipo 1</label>
+          <input type="text" class="form-control" id="inputGoles1"
+          name="goles1" #goles1="ngModel" [(ngModel)]="idMarcadorModel.goles1">
+        </div>
+        <div class="mb-3">
+          <label for="inputImagen" class="form-label">Goles del equipo 2
+          </label>
+          <input type="text" class="form-control" id="inputGoles2"
+          name="goles2" #goles2="ngModel" [(ngModel)]="idMarcadorModel.goles2">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary"  >Agregar Resultados</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: block;">
+  <canvas baseChart
+    chartType="pie"
+    [data]="chartData"
+    [colors]="chartColors"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [plugins]="chartPlugins"
+    [legend]="chartLegend">
+  </canvas>
+</div>
